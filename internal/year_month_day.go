@@ -1,3 +1,6 @@
+// The code was adapted from the .NET noda library.
+// I don't think it will get used.
+
 package internal
 
 import (
