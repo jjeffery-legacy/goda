@@ -22,18 +22,18 @@ YearMonthDay provides a compact representation of a year, month and day
 
 
 
-### func YearMonthDay_New
+### func NewYearMonthDay
 ``` go
-func YearMonthDay_New(year, month, day int) YearMonthDay
+func NewYearMonthDay(year, month, day int) YearMonthDay
 ```
-YearMonthDay_New creates a new YearMonthDay. No error checking is performed.
+NewYearMonthDay creates a new YearMonthDay. No error checking is performed.
 
 
-### func YearMonthDay_Parse
+### func ParseYearMonthDay
 ``` go
-func YearMonthDay_Parse(text string) YearMonthDay
+func ParseYearMonthDay(text string) YearMonthDay
 ```
-YearMonthDay_Parse is used for testing. It parses text in the format YYYY-MM-DD.
+ParseYearMonthDay is used for testing. It parses text in the format YYYY-MM-DD.
 Absolutely no error checking is performed.
 
 
