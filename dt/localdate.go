@@ -90,7 +90,7 @@ const (
 )
 
 // toDays converts a duration that might contain a fractional number of days
-// into an exact number od days. Truncation occurs towards zero. This function
+// into an exact number of days. Truncation occurs towards zero. This function
 // is used when using durations for date arithmetic.
 func toDays(duration time.Duration) time.Duration {
 	days := duration.Nanoseconds() / nanosecondsPerDay
