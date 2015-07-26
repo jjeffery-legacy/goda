@@ -62,7 +62,7 @@ func (c currency) MinorUnit() int {
 var DefaultCurrency Currency
 
 var (
-	// Australian Dollar
+	// AUD represents the Australian Dollar
 	AUD Currency = currency{
 		code:        "AUD",
 		numericCode: 36,
@@ -80,6 +80,7 @@ var (
 		},
 	}
 
+	// CAD is the Canadian Dollar
 	CAD Currency = currency{
 		code:        "CAD",
 		numericCode: 124,
@@ -90,6 +91,7 @@ var (
 		},
 	}
 
+	// CHF is the Swiss Franc
 	CHF Currency = currency{
 		code:        "CHF",
 		numericCode: 756,
@@ -101,6 +103,7 @@ var (
 		},
 	}
 
+	// EUR is the Euro
 	EUR Currency = currency{
 		code:        "EUR",
 		numericCode: 978,
@@ -144,8 +147,9 @@ var (
 		},
 	}
 
+	// GBP is the Great Britain Pound
 	GBP Currency = currency{
-		code: "GBP",
+		code:        "GBP",
 		numericCode: 826,
 		minorUnit:   2,
 		name:        "Great Britain Pound",
@@ -154,6 +158,7 @@ var (
 		},
 	}
 
+	// JPY is the Japanese Yen
 	JPY Currency = currency{
 		code:        "JPY",
 		numericCode: 392,
@@ -164,6 +169,7 @@ var (
 		},
 	}
 
+	// NZD is the New Zealand Dollar
 	NZD Currency = currency{
 		code:        "NZD",
 		numericCode: 554,
@@ -178,6 +184,7 @@ var (
 		},
 	}
 
+	// USD is the US Dollar
 	USD Currency = currency{
 		code:        "USD",
 		numericCode: 840,

@@ -12,7 +12,7 @@ func TestAllDates_YearMonthDay(t *testing.T) {
 		month := 5
 		day := 20
 
-		ymd := internal.YearMonthDay_New(year, month, day)
+		ymd := internal.NewYearMonthDay(year, month, day)
 		CheckYearMonthDay(t, ymd, year, month, day)
 	}
 }
@@ -22,7 +22,7 @@ func TestAllMonths_YearMonthDay(t *testing.T) {
 		year := 1969
 		day := 12
 
-		ymd := internal.YearMonthDay_New(year, month, day)
+		ymd := internal.NewYearMonthDay(year, month, day)
 		CheckYearMonthDay(t, ymd, year, month, day)
 	}
 }
@@ -32,7 +32,7 @@ func TestAllDays_YearMonthDay(t *testing.T) {
 		year := 2029
 		month := 1
 
-		ymd := internal.YearMonthDay_New(year, month, day)
+		ymd := internal.NewYearMonthDay(year, month, day)
 		CheckYearMonthDay(t, ymd, year, month, day)
 	}
 }
@@ -53,7 +53,7 @@ func CheckYearMonthDay(t *testing.T, ymd internal.YearMonthDay, year, month, day
 		t.Errorf("ymd.String(): expected=%s, actual=%s", text, ymd.String())
 	}
 
-	ymd2 := internal.YearMonthDay_Parse(text)
+	ymd2 := internal.ParseYearMonthDay(text)
 	if ymd2 != ymd {
 		t.Errorf("ymd2: expected=%v, actual=%v", ymd, ymd2)
 	}

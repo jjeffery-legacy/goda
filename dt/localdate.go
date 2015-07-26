@@ -113,6 +113,12 @@ func (d LocalDate) Sub(e LocalDate) time.Duration {
 	return d.t.Sub(e.t)
 }
 
+// AddDate returns the local date corresponding to adding the given number of years,
+// months, and days to t. For example, AddDate(-1, 2, 3) applied to January 1, 2011
+// returns March 4, 2010.
+//
+// AddDate normalizes its result in the same way that Date does, so, for example,
+// adding one month to October 31 yields December 1, the normalized form for November 31.
 func (d LocalDate) AddDate(years int, months int, days int) LocalDate {
 	t := d.t.AddDate(years, months, days)
 	return LocalDate{t: t}
@@ -182,7 +188,7 @@ var (
 	errInvalidDateFormat = errors.New("invalid date format")
 )
 
-// Parse attempts to parse a string into a local date. Leading
+// ParseDate attempts to parse a string into a local date. Leading
 // and trailing space and quotation marks are ignored. The following
 // date formates are recognised: yyyy-mm-dd, yyyymmdd, yyyy.mm.dd,
 // yyyy/mm/dd, yyyy-ddd, yyyyddd.
