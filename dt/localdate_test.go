@@ -129,3 +129,79 @@ func CheckLocalDate(t *testing.T, date LocalDate, year, month, day int) {
 		}
 	}
 }
+
+func TestParseDate(t *testing.T) {
+	testCases := []struct {
+		Text  string
+		Valid bool
+		Day   int
+		Month time.Month
+		Year  int
+	}{
+		{
+			Text:  "2095-09-30",
+			Valid: true,
+			Day:   30,
+			Month: time.September,
+			Year:  2095,
+		},
+		{
+			Text:  "2195-060",
+			Valid: true,
+			Day:   1,
+			Month: time.March,
+			Year:  2195,
+		},
+		{
+			Text:  "2095.09.30",
+			Valid: true,
+			Day:   30,
+			Month: time.September,
+			Year:  2095,
+		},
+		{
+			Text:  "2095/09/30",
+			Valid: true,
+			Day:   30,
+			Month: time.September,
+			Year:  2095,
+		},
+		{
+			Text:  "20951030",
+			Valid: true,
+			Day:   30,
+			Month: time.October,
+			Year:  2095,
+		},
+		{
+			Text:  "2195-060",
+			Valid: true,
+			Day:   1,
+			Month: time.March,
+			Year:  2195,
+		},
+		{
+			Text:  "2195074",
+			Valid: true,
+			Day:   15,
+			Month: time.March,
+			Year:  2195,
+		},
+	}
+	assert := assert.New(t)
+
+	for _, tc := range testCases {
+		for _, suffix := range []string{"", "T00:00:00Z", "T00:00:00", "T00:00:00+10:000", "T000000+0900"} {
+			text := tc.Text + suffix
+			ld, err := ParseDate(text)
+			if tc.Valid {
+				assert.NoError(err, text)
+				assert.Equal(tc.Day, ld.Day())
+				assert.Equal(tc.Month, ld.Month())
+				assert.Equal(tc.Year, ld.Year())
+			} else {
+				assert.Error(err, text)
+			}
+		}
+	}
+}

@@ -170,18 +170,18 @@ func toQuotedString(d LocalDate) string {
 
 var calendarDateFormats = [...]*regexp.Regexp{
 	// ISO 8601 representations
-	regexp.MustCompile(`^(-?\d{4})-(\d{1,2})-(\d{1,2})$`),
-	regexp.MustCompile(`^(-?\d{4})(\d{2})(\d{2})$`),
+	regexp.MustCompile(`^(-?\d{4})-(\d{1,2})-(\d{1,2})(T[0-9:.zZ+-]*)?$`),
+	regexp.MustCompile(`^(-?\d{4})(\d{2})(\d{2})(T[0-9:.zZ+-]*)?$`),
 
 	// Not ISO 8601, but still unambiguous
-	regexp.MustCompile(`^(-?\d{4})\.(\d{1,2})\.(\d{1,2})$`),
-	regexp.MustCompile(`^(-?\d{4})/(\d{1,2})/(\d{1,2})$`),
+	regexp.MustCompile(`^(-?\d{4})\.(\d{1,2})\.(\d{1,2})(T[0-9:.zZ+-]*)?$`),
+	regexp.MustCompile(`^(-?\d{4})/(\d{1,2})/(\d{1,2})(T[0-9:.zZ+-]*)?$`),
 }
 
 var ordinalDateFormats = [...]*regexp.Regexp{
 	// ISO 8601 representations
-	regexp.MustCompile(`^(-?\d{4})-(\d{3})$`),
-	regexp.MustCompile(`^(-?\d{4})(\d{3})$`),
+	regexp.MustCompile(`^(-?\d{4})-(\d{3})(T[0-9:.zZ+-]*)?$`),
+	regexp.MustCompile(`^(-?\d{4})(\d{3})(T[0-9:.zZ+-]*)?$`),
 }
 
 var (
