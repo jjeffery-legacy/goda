@@ -1,6 +1,7 @@
 package dt
 
 import (
+	"encoding/xml"
 	"fmt"
 	"testing"
 	"time"
@@ -203,5 +204,44 @@ func TestParseDate(t *testing.T) {
 				assert.Error(err, text)
 			}
 		}
+	}
+}
+
+func TestMarshalXML(t *testing.T) {
+	assert := assert.New(t)
+	type testStruct struct {
+		XMLName        xml.Name `xml:"TestCase"`
+		Element        LocalDate
+		AnotherElement LocalDate `xml:"another"`
+		Attribute1     LocalDate `xml:",attr"`
+		Attribute2     LocalDate `xml:"attribute-2,attr"`
+	}
+
+	testCases := []struct {
+		st  testStruct
+		xml string
+	}{
+		{
+			st: testStruct{
+				Element:        MustParseDate("2021-01-02"),
+				AnotherElement: MustParseDate("2021-01-03"),
+				Attribute1:     MustParseDate("2021-01-04"),
+				Attribute2:     MustParseDate("2021-01-05"),
+			},
+			xml: `<TestCase Attribute1="2021-01-04" attribute-2="2021-01-05"><Element>2021-01-02</Element><another>2021-01-03</another></TestCase>`,
+		},
+	}
+
+	for _, tc := range testCases {
+		b, err := xml.Marshal(&tc.st)
+		assert.NoError(err)
+		assert.Equal(tc.xml, string(b))
+		var st testStruct
+		err = xml.Unmarshal([]byte(tc.xml), &st)
+		assert.NoError(err)
+		assert.Equal("", st.XMLName.Space)
+		assert.Equal("TestCase", st.XMLName.Local)
+		st.XMLName.Local = ""
+		assert.Equal(tc.st, st)
 	}
 }

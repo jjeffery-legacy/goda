@@ -1,6 +1,7 @@
 package dt
 
 import (
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"regexp"
@@ -221,6 +222,16 @@ func ParseDate(s string) (LocalDate, error) {
 	return LocalDate{}, errInvalidDateFormat
 }
 
+// MustParseDate is similar to ParseDate, but instead of returning an error it will
+// panic if s is not in one of the expected formats.
+func MustParseDate(s string) LocalDate {
+	d, err := ParseDate(s)
+	if err != nil {
+		panic(err.Error())
+	}
+	return d
+}
+
 // MarshalJSON implements the json.Marshaler interface.
 // The date is a quoted string in an ISO 8601 format (yyyy-mm-dd).
 func (d LocalDate) MarshalJSON() ([]byte, error) {
@@ -248,4 +259,40 @@ func (d *LocalDate) UnmarshalText(data []byte) (err error) {
 	s := string(data)
 	*d, err = ParseDate(s)
 	return
+}
+
+func (d *LocalDate) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
+	e.EncodeElement(toString(*d), start)
+	return nil
+}
+
+func (d *LocalDate) UnmarshalXML(decoder *xml.Decoder, start xml.StartElement) error {
+	var s string
+
+	if err := decoder.DecodeElement(&s, &start); err != nil {
+		return err
+	}
+
+	if ld, err := ParseDate(s); err != nil {
+		return err
+	} else {
+		*d = ld
+	}
+	return nil
+}
+
+func (d *LocalDate) MarshalXMLAttr(name xml.Name) (xml.Attr, error) {
+	return xml.Attr{
+		Name:  name,
+		Value: d.String(),
+	}, nil
+}
+
+func (d *LocalDate) UnmarshalXMLAttr(attr xml.Attr) error {
+	if ld, err := ParseDate(attr.Value); err != nil {
+		return err
+	} else {
+		*d = ld
+	}
+	return nil
 }
